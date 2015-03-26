@@ -330,8 +330,8 @@ export default DS.Adapter.extend(Ember.Evented, {
     var adapter = this;
     var recordRef = _recordRef || this._getRef(type, record.id);
     var recordCache = adapter._getRecordCache(type.typeKey, record.get('id'));
-
-    var serializedRecord = record.serialize({includeId:false});
+    var serializer = store.serializerFor(type);
+    var serializedRecord = serializer.serialize(record, {includeId:false});
 
     return new Promise(function(resolve, reject) {
       var savedRelationships = Ember.A();
